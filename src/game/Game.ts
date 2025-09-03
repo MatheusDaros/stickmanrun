@@ -88,17 +88,8 @@ export class Game {
           this.stickman.jump();
         }
       }
-      if (event.code === 'ArrowLeft') {
+      if (event.code === 'ArrowLeft' || event.code === 'ArrowRight') {
         event.preventDefault();
-        if (this.isRunning) {
-          this.stickman.moveLeft();
-        }
-      }
-      if (event.code === 'ArrowRight') {
-        event.preventDefault();
-        if (this.isRunning) {
-          this.stickman.moveRight();
-        }
       }
     });
 
@@ -162,6 +153,14 @@ export class Game {
     requestAnimationFrame(this.animate);
 
     if (this.isRunning) {
+      // Handle continuous movement with arrow keys
+      if (this.keys['ArrowLeft']) {
+        this.stickman.moveLeft();
+      }
+      if (this.keys['ArrowRight']) {
+        this.stickman.moveRight();
+      }
+      
       this.stickman.update();
       this.environment.update(this.gameSpeed);
       this.obstacleManager.update(this.gameSpeed);
