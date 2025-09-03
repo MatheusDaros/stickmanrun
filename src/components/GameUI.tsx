@@ -51,6 +51,10 @@ export function GameUI({ score, isGameOver, isPlaying, onStart, onRestart }: Gam
                 <span>Press SPACE to jump over fences</span>
               </div>
               <div className="flex items-center space-x-3 text-white">
+                <div className="w-2 h-2 bg-purple-400 rounded-full"></div>
+                <span>Use LEFT/RIGHT arrows to dodge</span>
+              </div>
+              <div className="flex items-center space-x-3 text-white">
                 <div className="w-2 h-2 bg-green-400 rounded-full"></div>
                 <span>Avoid hitting obstacles</span>
               </div>
