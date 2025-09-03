@@ -52,7 +52,7 @@ export function GameUI({ score, isGameOver, isPlaying, onStart, onRestart }: Gam
               </div>
               <div className="flex items-center space-x-3 text-white">
                 <div className="w-2 h-2 bg-purple-400 rounded-full"></div>
-                <span>Use LEFT/RIGHT arrows to dodge</span>
+                <span>Use LEFT/RIGHT arrows to switch lanes</span>
               </div>
               <div className="flex items-center space-x-3 text-white">
                 <div className="w-2 h-2 bg-green-400 rounded-full"></div>
@@ -88,9 +88,9 @@ export function GameUI({ score, isGameOver, isPlaying, onStart, onRestart }: Gam
               </div>
               <p className="text-blue-200">
                 {score < 20 ? "Keep practicing!" : 
-                 score < 50 ? "Good effort!" : 
-                 score < 100 ? "Great run!" : 
-                 score < 200 ? "Amazing performance!" : "Legendary runner!"}
+                 score < 150 ? "Good effort!" : 
+                 score < 300 ? "Great run!" : 
+                 score < 500 ? "Amazing performance!" : "Legendary runner!"}
               </p>
             </div>
             

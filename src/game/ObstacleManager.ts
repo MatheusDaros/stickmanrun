@@ -68,8 +68,9 @@ class Fence {
 export class ObstacleManager {
   private group: THREE.Group;
   private fences: Fence[] = [];
-  private totalFences = 100;
+  private totalFences = 500;
   private fenceSpacing = 6;
+  private lanes = [-3, 0, 3]; // Left, Middle, Right lanes
 
   constructor() {
     this.group = new THREE.Group();
@@ -77,15 +78,51 @@ export class ObstacleManager {
   }
 
   private generateAllFences() {
-    // Generate all 100 fences at once
+    // Generate all 500 fences at once across three lanes
     for (let i = 0; i < this.totalFences; i++) {
       const fenceZ = -15 - (i * this.fenceSpacing);
-      const fenceX = (Math.random() - 0.5) * 4; // Random X position for variety
+      
+      // Randomly choose 1-3 lanes to place fences, ensuring at least one lane is always open
+      const availableLanes = [...this.lanes];
+      const numFencesToPlace = Math.floor(Math.random() * 2) + 1; // 1 or 2 fences per row
+      
+      // Always leave at least one lane open for the player to pass through
+      const lanesToBlock = [];
+      for (let j = 0; j < numFencesToPlace && lanesToBlock.length < 2; j++) {
+        const randomIndex = Math.floor(Math.random() * availableLanes.length);
+        lanesToBlock.push(availableLanes.splice(randomIndex, 1)[0]);
+      }
+      
+      // Create fences in the selected lanes
+      lanesToBlock.forEach(laneX => {
+        const fence = new Fence(laneX, fenceZ);
+        this.fences.push(fence);
+        this.group.add(fence.getGroup());
+      });
+    }
+  }
+
+  private generateSingleFenceRow(i: number) {
+    const fenceZ = -15 - (i * this.fenceSpacing);
+    
+    // Randomly choose 1-3 lanes to place fences, ensuring at least one lane is always open
+    const availableLanes = [...this.lanes];
+    const numFencesToPlace = Math.floor(Math.random() * 2) + 1; // 1 or 2 fences per row
+    
+    // Always leave at least one lane open for the player to pass through
+    const lanesToBlock = [];
+    for (let j = 0; j < numFencesToPlace && lanesToBlock.length < 2; j++) {
+      const randomIndex = Math.floor(Math.random() * availableLanes.length);
+      lanesToBlock.push(availableLanes.splice(randomIndex, 1)[0]);
+    }
+    
+    // Create fences in the selected lanes
+    lanesToBlock.forEach(laneX => {
       
       const fence = new Fence(fenceX, fenceZ);
       this.fences.push(fence);
       this.group.add(fence.getGroup());
-    }
+    });
   }
 
   update(speed: number) {

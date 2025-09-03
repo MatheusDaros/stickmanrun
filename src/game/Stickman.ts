@@ -101,7 +101,7 @@ export class Stickman {
     this.horizontalVelocity *= this.horizontalDamping;
     
     // Keep stickman within bounds
-    this.group.position.x = Math.max(-6, Math.min(6, this.group.position.x));
+    this.group.position.x = Math.max(-4, Math.min(4, this.group.position.x));
     
     // Handle jumping physics
     if (this.isJumping) {
