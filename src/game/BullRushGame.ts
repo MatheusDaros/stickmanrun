@@ -16,6 +16,7 @@ export class BullRushGame {
   private scene: THREE.Scene;
   private camera: THREE.PerspectiveCamera;
   private renderer: THREE.WebGLRenderer;
+  private canvas: HTMLCanvasElement;
   private bull: Bull;
   private environment: Environment;
   private fenceManager: FenceManager;
@@ -30,6 +31,7 @@ export class BullRushGame {
 
   constructor(canvas: HTMLCanvasElement, callbacks: GameCallbacks) {
     this.callbacks = callbacks;
+    this.canvas = canvas;
     this.gameStats = {
       score: 0,
       fencesDestroyed: 0,
@@ -121,14 +123,14 @@ export class BullRushGame {
     });
 
     // Touch controls for mobile
-    canvas.addEventListener('touchstart', (event) => {
+    this.canvas.addEventListener('touchstart', (event) => {
       event.preventDefault();
       if (this.isRunning) {
         this.bull.startCharging();
       }
     });
 
-    canvas.addEventListener('touchend', (event) => {
+    this.canvas.addEventListener('touchend', (event) => {
       event.preventDefault();
       if (this.isRunning) {
         this.bull.stopCharging();
