@@ -88,6 +88,18 @@ export class Game {
           this.stickman.jump();
         }
       }
+      if (event.code === 'ArrowLeft') {
+        event.preventDefault();
+        if (this.isRunning) {
+          this.stickman.moveLeft();
+        }
+      }
+      if (event.code === 'ArrowRight') {
+        event.preventDefault();
+        if (this.isRunning) {
+          this.stickman.moveRight();
+        }
+      }
     });
 
     window.addEventListener('keyup', (event) => {

@@ -8,6 +8,9 @@ export class Stickman {
   private groundY = 1;
   private jumpHeight = 0;
   private runAnimation = 0;
+  private horizontalVelocity = 0;
+  private maxHorizontalSpeed = 0.15;
+  private horizontalDamping = 0.85;
 
   constructor() {
     this.group = new THREE.Group();
@@ -82,7 +85,24 @@ export class Stickman {
     }
   }
 
+  moveLeft() {
+    this.horizontalVelocity = Math.max(this.horizontalVelocity - 0.02, -this.maxHorizontalSpeed);
+  }
+
+  moveRight() {
+    this.horizontalVelocity = Math.min(this.horizontalVelocity + 0.02, this.maxHorizontalSpeed);
+  }
+
   update() {
+    // Handle horizontal movement
+    this.group.position.x += this.horizontalVelocity;
+    
+    // Apply damping to horizontal movement
+    this.horizontalVelocity *= this.horizontalDamping;
+    
+    // Keep stickman within bounds
+    this.group.position.x = Math.max(-6, Math.min(6, this.group.position.x));
+    
     // Handle jumping physics
     if (this.isJumping) {
       this.jumpHeight += this.jumpVelocity;
@@ -121,10 +141,11 @@ export class Stickman {
   }
 
   reset() {
-    this.group.position.set(-3, this.groundY, 0);
+    this.group.position.set(0, this.groundY, 0);
     this.isJumping = false;
     this.jumpVelocity = 0;
     this.jumpHeight = 0;
     this.runAnimation = 0;
+    this.horizontalVelocity = 0;
   }
 }
