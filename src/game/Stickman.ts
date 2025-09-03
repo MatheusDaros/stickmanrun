@@ -78,7 +78,7 @@ export class Stickman {
   jump() {
     if (!this.isJumping) {
       this.isJumping = true;
-      this.jumpVelocity = 0.25;
+      this.jumpVelocity = 0.2;
     }
   }
 
@@ -86,7 +86,7 @@ export class Stickman {
     // Handle jumping physics
     if (this.isJumping) {
       this.jumpHeight += this.jumpVelocity;
-      this.jumpVelocity -= 0.015; // Gravity
+      this.jumpVelocity -= 0.012; // Gravity
       
       if (this.jumpHeight <= 0) {
         this.jumpHeight = 0;
@@ -100,7 +100,7 @@ export class Stickman {
 
     // Running animation
     if (!this.isJumping) {
-      this.runAnimation += 0.3;
+      this.runAnimation += 0.2;
       const { leftArm, rightArm, leftLeg, rightLeg } = this.body.userData;
       
       // Animate arms and legs for running motion

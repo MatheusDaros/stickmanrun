@@ -17,7 +17,7 @@ export class Game {
   private obstacleManager: ObstacleManager;
   private isRunning = false;
   private score = 0;
-  private gameSpeed = 0.1;
+  private gameSpeed = 0.06;
   private callbacks: GameCallbacks;
   private keys: { [key: string]: boolean } = {};
 
@@ -104,7 +104,7 @@ export class Game {
   start() {
     this.isRunning = true;
     this.score = 0;
-    this.gameSpeed = 0.1;
+    this.gameSpeed = 0.06;
     this.stickman.reset();
     this.obstacleManager.reset();
   }
@@ -142,7 +142,7 @@ export class Game {
       this.callbacks.onScoreUpdate(this.score);
       
       // Increase game speed gradually
-      this.gameSpeed = Math.min(0.3, 0.1 + (this.score * 0.0005));
+      this.gameSpeed = Math.min(0.15, 0.06 + (this.score * 0.0003));
     }
   }
 
